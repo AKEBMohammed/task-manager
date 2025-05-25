@@ -44,8 +44,8 @@ public class UserServiceIntegrationTest {
         newUser.setEmail("testuser@test.com");
 
         // Create USER role if it doesn't exist
-        Optional<Role> userRole = roleRepository.findByRole("USER");
-        if (!userRole.isPresent()) {
+        Role userRole = roleRepository.findByRole("USER");
+        if (userRole == null) {
             Role role = new Role();
             role.setRole("USER");
             roleRepository.save(role);
@@ -101,7 +101,7 @@ public class UserServiceIntegrationTest {
         String email = "emailUser@test.com";
 
         // When
-        User foundUser = userService.findByEmail(email);
+        User foundUser = userService.getUserByEmail(email);
 
         // Then
         assertThat(foundUser).isNotNull();
@@ -130,8 +130,8 @@ public class UserServiceIntegrationTest {
         user.setEmail(username + "@test.com");
 
         // Create USER role if it doesn't exist
-        Optional<Role> userRole = roleRepository.findByRole("USER");
-        if (!userRole.isPresent()) {
+        Role userRole = roleRepository.findByRole("USER");
+        if (userRole == null) {
             Role role = new Role();
             role.setRole("USER");
             roleRepository.save(role);
